@@ -1,0 +1,69 @@
+
+Each word will be an object.
+Each activity will be a method called on that object.
+Word, definition, synonyms, antonyms, pictures, sentences will be properties of that object.
+Before Activities can be called, all information for the Word must be loaded.
+
+
+WAYS TO HANDLE INCORRECT ANSWERS
+  load a list of fodderWords 5x or 10x the size of Current Words
+  fodderWords are unique per each session: they always change
+
+var learningWord = new word();
+learningWord.word.synonym(learning[i], fodderWords[i], rightSynonym)
+	Would generate the Synonym activity, testing whether user could match the correct synonym for learning[i] to the appropriate synonym stored in rightSynonym which is embedded in a list of wrong answers, fodderWords[i]
+
+
+If each Activity is randomly displayed during the Learning Session, each Activity needs an ID of sorts to generate randomness.
+
+
+WHEN IS THE LEARNING SESSION COMPLETE?
+  Overall time? 1m, 3m, 5m, 10m set when making account and editable in settings
+   
+
+HOW TO HANDLE INCORRECT ANSWERS
+  show user correct answer and move on after few seconds
+  -or- eliminate wrong answer from possible choices
+      user keeps eliminating wrong answers until correct one is found
+
+SHOULD CURRENT WORDS BE CONSTANTLY AUTO-UPDATED?
+  when a word becomes learned (333333), should that word be automatically removed from Current Words and replaced with another?
+
+BEGIN LEARNING SESSION
+ 1 GET data for each instance of currentWords[i]
+ 2 GET fodderWords[i]
+   BEGIN sessionTimer
+ 3 Determine Activity (random choosing of ID attached to each Activity)
+ 4 Begin Activity
+`5 End Activity.
+ 6 Repeat 3-6 until sessionTimer hits 0
+ 7 Display stats: # correct, # wrong, best Activities, worst Activities
+
+END LEARNING SESSION
+
+
+BEGIN ACTIVITY
+  var learningWord[i]
+  var fodderWords[i]
+  var activity_id
+  var amnt_learned for learningWord[i]
+  Display activity
+  Begin Activity timer
+  If WRONG,
+    eliminate wrong answer from possible choices (grey it out), keep displaying correct answers and fodderWords
+    keep greying out wrong answers until correct is chosen
+  If RIGHT,
+    Update amount_learned
+    Notify user
+    Transition to next; repeat until Learning Session is complete
+  If RIGHT AND LEARNED=333333
+    Move word to Learned, update Current Words, notify user
+    Transition to next; repeat until Learning Session is complete
+  If Activity timer = 0, execute WRONG
+END ACTIVITY
+
+
+////////////////////////
+// parsing definition
+////////////////////////
+need to FOR loop through results
